@@ -11,10 +11,10 @@ $$ language 'plpgsql';
 
 CREATE TABLE IF NOT EXISTS account (
     id UUID NOT NULL DEFAULT uuid_generate_v4(),
-    name VARCHAR(255),
-    email VARCHAR(64) IS NOT NULL,
+    name VARCHAR(255) DEFAULT 'foo',
+    email VARCHAR(255) IS NOT NULL,
     password TEXT,
-    status SMALLINT DEFAULT 1, -- -1: DELTED, 0: UNACTIVE, 1: ACTIVE - default should be 0 before validation
+    status SMALLINT DEFAULT 1, -- -1: DELETED, 0: UNACTIVE, 1: ACTIVE - default should be 0 before validation
     settings JSON,
     roles text[] DEFAULT '{user}',
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -95,3 +95,22 @@ DROP TRIGGER IF EXISTS encrypt_created_account_password ON account;
 CREATE TRIGGER encrypt_created_account_password BEFORE INSERT ON account FOR EACH ROW EXECUTE FUNCTION  encrypt_password();
 DROP TRIGGER IF EXISTS encrypt_updated_account_password ON account;
 CREATE TRIGGER encrypt_updated_account_password BEFORE UPDATE ON account FOR EACH ROW EXECUTE FUNCTION  encrypt_password();
+
+CREATE OR REPLACE FUNCTION check_password (em varchar(255), pwd varchar(255))
+  RETURNS boolean
+  AS $$
+BEGIN
+  IF EXISTS (
+    SELECT
+      TRUE
+    FROM
+      account
+    WHERE
+      email = em
+      AND password = crypt(pwd, password)) THEN
+  RETURN TRUE;
+END IF;
+  RETURN FALSE;
+END;
+$$
+LANGUAGE 'plpgsql';

@@ -13,10 +13,11 @@ Support main features (regular user):
 - Tasks (CRUD): typical to-do task  
     Properties
 
-    - Priority
+    - Priority Levels
     - Tags
     - Order (within board)
     - Status
+
 - Filter and search (use built-in full-text-search from postgres - it is not that hard to migrate to es later)
 
 Administrator:
