@@ -1,5 +1,6 @@
 -- the narrower the column for the better 
 -- so smallint is chosen for indicator
+-- TODO indexing
 CREATE EXTENSION pgcrypto;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -61,9 +62,30 @@ CREATE TABLE IF NOT EXISTS task_tag (
     PRIMARY KEY (board_id, tag_id)
 );
 
+-- indexing
+CREATE UNIQUE INDEX idx_tag_name_type ON tag(name, type); -- this is required to make insert_tag works since conflict must be applied on indexed columns
+
 -- functions and triggers
 DROP TRIGGER IF EXISTS update_board_updated_at ON board;
 CREATE TRIGGER update_board_updated_at BEFORE UPDATE ON board FOR EACH ROW EXECUTE PROCEDURE  update_timestamp();
 
 DROP TRIGGER IF EXISTS update_board_updated_at ON board;
 CREATE TRIGGER update_board_updated_at BEFORE UPDATE ON board FOR EACH ROW EXECUTE PROCEDURE  update_timestamp();
+
+CREATE OR REPLACE FUNCTION insert_tag(_name VARCHAR(255), _type SMALLINT, OUT _tag_id int) AS
+$$
+BEGIN
+    SELECT id 
+    FROM tag 
+    WHERE name = _name AND type = _type
+    INTO _tag_id
+
+    IF NOT FOUND THEN
+        INSERT INTO tag(name, type)
+        VALUES (_name, _type)
+        ON CONFLICT (name, type) DO NOTHING
+        RETURNING id 
+        INTO _tag_id;
+    END IF;
+END
+$$ LANGUAGE plpgsql

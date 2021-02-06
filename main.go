@@ -10,6 +10,7 @@ import (
 var (
 	logger      = initLogger()
 	rdbContext  = context.TODO()
+	dbContext   = context.Background()
 	tokenSecret string
 )
 
