@@ -1,8 +1,7 @@
 # TOGO
 
-My implement for the [assignment](https://github.com/manabie-com/togo/tree/v0.0.1).  
-I have decided to build the one that I would like to use. Hopefully, it will grow as a side project. It is quite personal, but it is sure funnier than work on extending the provided template.   
-Sorry, guys.  
+Initially, this is my implementation for the [assessment](https://github.com/manabie-com/togo/tree/v0.0.1).  However, I could not keep it up and dropped halfway.
+Hence, this becomes my side project where I can recall my knowledge and do some experiments.  
 This is not really a usual README file.  
 
 ## Feature
@@ -35,13 +34,25 @@ Administrator:
 
 ## Planning and TODO (not really)
 
+- [ ] PostgreSQL as backend (for fun, since I like to write a lot of SQL for data processing instead of ORM or Query Builder style). We can cut down the latency too.
 - [ ] Account service (I would like to separate it)
 - [ ] Task Service
 - [ ] Caching - gocache (instance caching) or redis / tar (centralize caching)
-- [ ] Testing (okay, I want to confess that I am not good at writing tests TBH)
-- [ ] Do we need task/job queue for something???
+- [ ] Testing (okay, I want to confess that I am not good at writing tests, TBH)
+- [ ] Do we need a task/job queue for something???
 - [ ] Off-load token parsing and authorization to api gateway (nginx)
 - [ ] Server Sent Events for dashboard 
 - [ ] Markdown Engine 
 - [ ] Build under Github Action
-- [ ] Deploy on orchestration (ansible + k3s or better terraform + k3s, since this would be place on my beaglebone) (OUT OF KNOWLEDGE)
+- [ ] Deploy on orchestration (ansible + k3s or better terraform + k3s, since I would place this on my Beaglebone board) (OUT OF KNOWLEDGE atm)
+
+## ON THE WAY (or references)
+
+- https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/ < old article I dig out of my stack 
+- More about database problem:  https://stackoverflow.com/a/42217872
+- And more: https://stackoverflow.com/a/40325406
+- Re-read (3rd time maybe) SQL Performance Explained book
+- Re-read Kubernetes: Up and Running: Dive Into the Future of Infrastructure
+- Read The Kubernetes Book
+- https://rakyll.org/style-packages/
+- https://jensrantil.github.io/post/salt-vs-ansible/ < I decided re-learn Saltstack
