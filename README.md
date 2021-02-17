@@ -56,3 +56,7 @@ Administrator:
 - Read The Kubernetes Book
 - https://rakyll.org/style-packages/
 - https://jensrantil.github.io/post/salt-vs-ansible/ < I decided re-learn Saltstack
+- https://threedots.tech/tags/building-business-applications/ < outstanding articles on building maintainable service in go, highly recommended
+- https://instil.co/blog/static-vs-dynamic-types/ < this and the below two were fun to read
+- https://instil.co/blog/static-types-wont-save-us-from-bad-code/
+- https://instil.co/blog/why-strong-static-typing-is-your-friend/
